@@ -1,13 +1,24 @@
 package com.example.demo.entityes;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "books")
 public class Book {
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
     private short pages;
 
+    @Column(nullable = false)
     private int year;
+
+    public Book() {
+    }
 
     public Book(int id, String title, short pages, int year) {
         this.id = id;

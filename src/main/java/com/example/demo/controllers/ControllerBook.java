@@ -19,9 +19,7 @@ public class ControllerBook {
     @GetMapping
     public List<Book> getBooks(){
 
-        //return List.of( new Book(32,"Cien años de Soledad",(short)543,1978));
-
-        return serviceBook.getBooks();
+        return serviceBook.findAll();
     }
 
     @GetMapping("/{id}")
@@ -33,7 +31,11 @@ public class ControllerBook {
     @PostMapping
     public Book saveBook( @RequestBody Book book ){
 
-        return serviceBook.addBook( book );
+        if( serviceBook.findById( book.getId()) == null ){
+            return serviceBook.save( book );
+        }
+
+        return null;
     }
 
 }

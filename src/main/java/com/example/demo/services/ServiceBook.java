@@ -1,45 +1,33 @@
 package com.example.demo.services;
 
 import com.example.demo.entityes.Book;
+import com.example.demo.repositories.RepositorieBook;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 public class ServiceBook {
-    private Map<Integer, Book> books;
+    private RepositorieBook repositorieBook;
 
-    public ServiceBook() {
-        books = new HashMap<>();
+    public ServiceBook(RepositorieBook repositorieBook) {
+        this.repositorieBook = repositorieBook;
     }
 
-    public Book findById( Integer id ){
 
-        Book book = books.get( id );
+    public List<Book> findAll(){
 
-        return book;
+        return repositorieBook.findAll();
     }
 
-    public List<Book> getBooks() {
-        List<Book> listBooks = new ArrayList<>();
+    public Book findById(Integer id){
 
-        Set<Integer> keys = books.keySet();
-        Iterator<Integer> it = keys.iterator();
+        Optional<Book> book = repositorieBook.findById(id);
 
-        while( it. hasNext()){
-            listBooks.add( books.get( it.next() ) );
-        }
-
-        return  listBooks;
+        return book.isPresent() ? book.get() : null;
     }
 
-    public Book addBook( Book book ){
-        if ( findById( book.getId()) == null){
-            books.put( book.getId(), book );
-
-            return findById( book.getId());
-        }
-
-        return null;
+    public Book save( Book book ){
+        return repositorieBook.save( book );
     }
 }

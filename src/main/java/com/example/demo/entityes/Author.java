@@ -14,6 +14,9 @@ public class Author {
 
     private List<Book> books;
 
+    public Author() {
+    }
+
     public Author(String name, LocalDate birthday) {
         this.name = name;
         this.birthday = birthday;
