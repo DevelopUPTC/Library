@@ -1,17 +1,28 @@
 package com.example.demo.entityes;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Entity
+@Table(name = "authors")
 public class Author {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @Column( length = 40, nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private LocalDate birthday;
 
+    @OneToMany(mappedBy = "author")
     private List<Book> books;
 
     public Author() {

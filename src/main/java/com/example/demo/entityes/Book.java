@@ -17,14 +17,21 @@ public class Book {
     @Column(nullable = false)
     private int year;
 
+    @OneToOne
+    private Cover cover;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Author author;
+
     public Book() {
     }
 
-    public Book(int id, String title, short pages, int year) {
+    public Book(int id, String title, short pages, int year, Cover cover) {
         this.id = id;
         this.title = title;
         this.pages = pages;
         this.year = year;
+        this.cover = cover;
     }
 
     public int getId() {
@@ -57,6 +64,14 @@ public class Book {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public Cover getCover() {
+        return cover;
+    }
+
+    public void setCover(Cover cover) {
+        this.cover = cover;
     }
 
     @Override
