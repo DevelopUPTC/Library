@@ -1,5 +1,6 @@
 package com.example.demo.entityes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,21 +18,18 @@ public class Book {
     @Column(nullable = false)
     private int year;
 
-    @OneToOne
-    private Cover cover;
-
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Author author;
 
     public Book() {
     }
 
-    public Book(int id, String title, short pages, int year, Cover cover) {
+    public Book(int id, String title, short pages, int year) {
         this.id = id;
         this.title = title;
         this.pages = pages;
         this.year = year;
-        this.cover = cover;
     }
 
     public int getId() {
@@ -58,20 +56,20 @@ public class Book {
         this.pages = pages;
     }
 
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
     public int getYear() {
         return year;
     }
 
     public void setYear(int year) {
         this.year = year;
-    }
-
-    public Cover getCover() {
-        return cover;
-    }
-
-    public void setCover(Cover cover) {
-        this.cover = cover;
     }
 
     @Override
